@@ -5,6 +5,8 @@
 	    <meta charset="utf-8">
 	    <title>Draggable directions</title>
 	    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Lh0gVQ7uZh5JqkH71EAyFsmliUhi2q4&callback=initMap"
+        async defer></script>
 	    <style>
 				html, body {
 				height: 100%;
@@ -73,21 +75,21 @@
 			  if (!navigator.geolocation){
 			    alert("Geolocation is not supported by your browser");
 			    return;
+			  } else {
+			  	function success(position) {
+				    var latitude  = position.coords.latitude;
+				    var longitude = position.coords.longitude;
+				    return callback(position.coords);
+				  }
+
+				  function error() {
+				    alert("Unable to retrieve your location");
+				  }
+
+				  navigator.geolocation.getCurrentPosition(success, error);
 			  }
 
-			  function success(position) {
-			    var latitude  = position.coords.latitude;
-			    var longitude = position.coords.longitude;
-
-			    $("#layer_black").fadeOut();
-			    return callback(position.coords);
-			  }
-
-			  function error() {
-			    alert("Unable to retrieve your location");
-			  }
-
-			  navigator.geolocation.getCurrentPosition(success, error);
+			  $("#layer_black").fadeOut();
 			}
 
 			geoFindMe(function(location){
@@ -126,6 +128,24 @@
 
 			  // Funcao responsavel por mostrar as rotas no mapa
 			  displayRoute('Carapina grande', 'Central carapina', directionsService, directionsDisplay);
+/*
+			  var cityCircle = new google.maps.Circle({
+              strokeColor: '#4285f4',
+              strokeOpacity: 0.35,
+              strokeWeight: 15,
+              fillColor: '#4285f4',
+              fillOpacity: 1,
+              map: map,
+              center: {lat:-20.2203825, lng: -40.2818566},
+              radius: 100
+            });
+*/
+			  var marker = new google.maps.Marker({
+      position: {lat:-20.2203825, lng: -40.2818566},
+      map: map,
+      animation: google.maps.Animation.DROP,
+      title: "fhgfhg" 
+  });
 			}
 
 			function displayRoute(origin, destination, service, display) {
@@ -163,7 +183,5 @@
 			  document.getElementById('total').innerHTML = total + ' km';
 			}
 	    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Lh0gVQ7uZh5JqkH71EAyFsmliUhi2q4&callback=initMap"
-        async defer></script>
   </body>
 </html>
