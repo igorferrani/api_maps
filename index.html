@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	    <meta charset="utf-8">
+	    <title>Draggable directions</title>       
+
+        <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="css/style.css">
+
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Lh0gVQ7uZh5JqkH71EAyFsmliUhi2q4&callback=initMap"
+        async defer></script>
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+		<script type="text/javascript" src="js/Maps.js"></script>
+	    <script>
+	    function initMap(){
+	    	var _maps = new Maps();
+			window.Maps = _maps.init();
+		}
+	    $(document).ready(function(){
+	    	var _maps = new Maps();
+
+	    	$("#btn_buscar").on('click', function(){
+	    		var directionsService = window.Maps.service;
+				var directionsDisplay = window.Maps.display;
+				var origem = $('#inputBuscaOrigem').val();
+				var destino = $('#inputBuscaDestino').val();
+				_maps.displayRoute(origem, destino, directionsService, directionsDisplay);
+			});    	
+
+			_maps.geoFindMe(function(location){
+				console.log(location);
+				$("#layer_black").fadeOut();
+			});
+		});
+	    </script>
+	</head>
+
+	<body>
+		<div id="layer_black" style="background-color:rgba(0,0,0,.8);width:100%;height:100%;position:fixed;top:0;left:0;z-index:9999"></div>
+		    
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Panel title</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+							<p id="data_location"></p>
+								<div class="col-md-5">
+									<div class="form-group">
+										<label for="" class="control-label">Origem</label>
+										<input type="text" class="form-control" id="inputBuscaOrigem" placeholder="Endereço de origem">
+									</div>
+								</div>
+								<div class="col-md-5">
+									<div class="form-group">
+										<label for="" class="control-label">Destino</label>
+										<input type="text" class="form-control" id="inputBuscaDestino" placeholder="Endereço de destino">
+									</div>
+								</div>
+								<div class="col-md-2">
+									<button class="btn btn-primary" id="btn_buscar">Buscar</button>
+								</div>
+							</div>
+
+							<div id="map" style="height:500px"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Panel title</h3>
+						</div>
+						<div class="panel-body">
+							<div id="right-panel">
+						      <p>Total Distance: <span id="total"></span></p>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  	</body>
+</html>
