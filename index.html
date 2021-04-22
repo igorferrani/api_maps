@@ -24,7 +24,17 @@
   </head>
   <body>
     <div id="container">
-    <script src="script.js">
+    
+    
+    <video autoplay="true" id="videoElement"></video>
+    
+    <button type= "button" class= "btn btn-primary">esquerda</button>
+    <button type= "button" class= "btn btn-primary">direita</button>
+    <button type= "button" class= "btn btn-primary">cima</button>
+    <button type= "button" class= "btn btn-primary">baixo</button>
+   </div>
+  </body>
+<script src="script.js">
       var video = document.querySelector("#videoElement");
 
 if (navigator.mediaDevices.getUserMedia) {
@@ -37,13 +47,4 @@ if (navigator.mediaDevices.getUserMedia) {
     });
 }
     </script>
-    
-    <video autoplay="true" id="videoElement"></video>
-    
-    <button type= "button" class= "btn btn-primary">esquerda</button>
-    <button type= "button" class= "btn btn-primary">direita</button>
-    <button type= "button" class= "btn btn-primary">cima</button>
-    <button type= "button" class= "btn btn-primary">baixo</button>
-   </div>
-  </body>
 </html>
